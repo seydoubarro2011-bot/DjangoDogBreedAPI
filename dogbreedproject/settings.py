@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for dogbreedproject project.
 
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-nu(&n(uej*qru12p+rq=^&dnq0dzqa%8p-4b5i)$z#wv66y)5n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -79,12 +81,14 @@ WSGI_APPLICATION = 'dogbreedproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DB', 'dogdb'),
+        'USER': os.environ.get('POSTGRES_USER', 'doguser'),
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
